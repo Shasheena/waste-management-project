@@ -56,10 +56,30 @@ form label {
 }
 
 input {
+  width: 96%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #118140; 
+  box-shadow: 0 0 4px rgba(17, 129, 64, 0.4);
+}
+
+select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: #fff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #118140; 
+  box-shadow: 0 0 4px rgba(17, 129, 64, 0.4);
 }
 
 button {

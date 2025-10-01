@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.seller.auth.dto.SigninRequest;
 import com.seller.auth.dto.SignupRequest;
 import com.seller.auth.model.Address;
+import com.seller.auth.model.City;
 import com.seller.auth.model.District;
 import com.seller.auth.model.Province;
 import com.seller.auth.model.Seller;
 import com.seller.auth.repository.AddressRepository;
+import com.seller.auth.repository.CityRepository;
 import com.seller.auth.repository.DistrictRepository;
 import com.seller.auth.repository.ProvinceRepository;
 import com.seller.auth.repository.SellerRepository;
@@ -31,6 +33,9 @@ public class SellerAuthService {
     @Autowired
     private SellerRepository sellerRepository;
 
+    @Autowired
+    private CityRepository cityRepository;
+
     public String register(SignupRequest request) {
 
         Province province = provinceRepository.findById(request.getProvince_id())
@@ -39,12 +44,15 @@ public class SellerAuthService {
         District district = districtRepository.findById(request.getDistrict_id())
         .orElseThrow(() -> new RuntimeException("District not found"));
 
+        City city = cityRepository.findById(request.getCity_id())
+        .orElseThrow(() -> new RuntimeException("City not found"));
+
         Address address = new Address();
-        address.setCity(request.getCity());
+        address.setCity(city);
         address.setDistrict(district);
         address.setProvince(province);
         address.setOther(request.getOther());
-        address.setPostalCode(request.getPostalCode());
+        // address.setPostalCode(request.getPostalCode());
         Address saveAddress = addressRepository.save(address);
 
         Seller seller = new Seller();

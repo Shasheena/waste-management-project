@@ -19,7 +19,9 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int address_id;
 
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_city_id", nullable = false)
+    private City city;
 
     @ManyToOne
     @JoinColumn(name = "province_province_id", nullable = false)
@@ -31,8 +33,8 @@ public class Address {
 
     private String other;
 
-    @Column(name = "postal_code")
-    private String postalCode;
+    // @Column(name = "postal_code")
+    // private String postalCode;
 
     @Version
     private int version;
@@ -45,11 +47,11 @@ public class Address {
         this.address_id = address_id;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -69,13 +71,13 @@ public class Address {
         this.version = version;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
+    // public String getPostalCode() {
+    //     return postalCode;
+    // }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
+    // public void setPostalCode(String postalCode) {
+    //     this.postalCode = postalCode;
+    // }
 
     public Province getProvince() {
         return province;

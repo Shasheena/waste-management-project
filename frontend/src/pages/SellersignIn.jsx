@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SellersignUp.css'; // Import the CSS file
+import { signin } from "../services/apiService.js";
+import axios from "axios"; 
 
 const SellerSignin = () => {
   const [formData, setFormData] = useState({

@@ -6,7 +6,7 @@ public class SignupRequest {
     public String seller_lname;
     public String seller_username;
     public String seller_password;
-    public String city;
+    public int city_id;
     public int province_id;
     public int district_id;
     public String other;
@@ -42,12 +42,7 @@ public class SignupRequest {
     public void setSeller_password(String seller_password) {
         this.seller_password = seller_password;
     }
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
+    
     public int getProvince_id() {
         return province_id;
     }
@@ -71,6 +66,12 @@ public class SignupRequest {
     }
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+    public int getCity_id() {
+        return city_id;
+    }
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
     }
 
     
