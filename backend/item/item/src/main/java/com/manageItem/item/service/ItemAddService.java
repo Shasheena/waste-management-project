@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.manageItem.item.dto.ItemDto;
-import com.manageItem.item.dto.SellerInfoDto;
+// import com.manageItem.item.dto.SellerInfoDto;
 import com.manageItem.item.model.Item;
 import com.manageItem.item.model.ItemCategory;
 import com.manageItem.item.model.Units;
@@ -20,7 +20,7 @@ public class ItemAddService {
     private final ItemRepository itemRepository;
     private ItemCategoryRepository itemCategoryRepository;
     private UnitRepository unitRepository;
-    private final WebClient webClient;
+    // private final WebClient webClient;
 
     // @Value("${seller.service.url}") // configurable in application.properties
     // private String sellerServiceUrl;
@@ -29,26 +29,26 @@ public class ItemAddService {
         this.itemRepository = itemRepository;
         this.itemCategoryRepository = itemCategoryRepository;
         this.unitRepository = unitRepository;
-        this.webClient = webClientBuilder.build();
+        // this.webClient = webClientBuilder.build();
     }
 
     public Item saveItem(ItemDto itemDTO) {
         // 1. Fetch seller email from sellerAuth service
-        SellerInfoDto sellerEmail = webClient
-                .get()
-                .uri("http://localhost:8080/api/sellers/by-email?email=" + itemDTO.getSellerEmail()) // adjust param as per API
-                .retrieve()
-                .bodyToMono(SellerInfoDto.class)
-                .block();
+        // SellerInfoDto sellerEmail = webClient
+        //         .get()
+        //         .uri("http://localhost:8080/api/sellers/by-email?email=" + itemDTO.getSellerEmail()) // adjust param as per API
+        //         .retrieve()
+        //         .bodyToMono(SellerInfoDto.class)
+        //         .block();
         
-        String email = sellerEmail.getEmail();
+        // String email = sellerEmail.getEmail();
 
         // 2. Convert DTO to Entity
         Item item = new Item();
         item.setUnitPrice(itemDTO.getUnitPrice());
         item.setQty(itemDTO.getQty());
         item.setDescription(itemDTO.getDescription());
-        item.setSellerEmail(email);
+        item.setSellerEmail(itemDTO.getSellerEmail());
 
         ItemCategory category = itemCategoryRepository.findById(itemDTO.getCategoryId())
         .orElseThrow(()->new RuntimeException("Category not found"));

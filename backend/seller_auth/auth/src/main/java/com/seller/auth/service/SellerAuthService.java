@@ -1,5 +1,7 @@
 package com.seller.auth.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,12 +69,27 @@ public class SellerAuthService {
         return "User registered successfully!";
     }
 
-    public String login(SigninRequest request) {
+    public Map<String, Object> login(SigninRequest request) {
         Optional<Seller> sellerOpt = sellerRepository.findByEmail(request.getSeller_email());
+        Map<String, Object> response = new HashMap<>();
+        
         if (sellerOpt.isPresent() && sellerOpt.get().getPassword().equals(request.getSeller_password())) {
-            return "Login successful!";
+            Seller seller = sellerOpt.get();
+            response.put("status", "success");
+            response.put("email", seller.getEmail());
+            return response;
         }
-        return "Invalid email or password!";
+        response.put("status", "error");
+        response.put("message", "Invalid email or password!");
+        return response;
     }
+
+    // public String login(SigninRequest request) {
+    //     Optional<Seller> sellerOpt = sellerRepository.findByEmail(request.getSeller_email());
+    //     if (sellerOpt.isPresent() && sellerOpt.get().getPassword().equals(request.getSeller_password())) {
+    //         return "Login successful!";
+    //     }
+    //     return "Invalid email or password!";
+    // }
 
 }

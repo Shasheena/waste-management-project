@@ -28,6 +28,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SellersignUp from "./pages/SellersignUp.jsx"; //Tries to load a file called SellersignUp.jsx in the same folder as App.jsx.
 import SellersignIn from "./pages/SellersignIn.jsx";
 import Home from "./pages/Home.jsx"
+import SdOverview from "./pages/SdOverview.jsx"
+import AddItem from "./pages/AddItem.jsx"
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
         <Route path="/SellersignUp" element={<SellersignUp />} />
         <Route path="/SellersignIn" element={<SellersignIn />} />
         <Route path="/Home" element={<Home />} />
+        <Route path="/SdOverview" element={<SdOverview />} />
+        <Route path="/AddItem" element={<AddItem />} />
       </Routes>
     </Router>
   );

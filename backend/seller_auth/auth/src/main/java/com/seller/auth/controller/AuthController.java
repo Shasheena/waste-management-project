@@ -1,5 +1,7 @@
 package com.seller.auth.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,9 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signin(@RequestBody SigninRequest request) {
+    public ResponseEntity<Map<String, Object>> signin(@RequestBody SigninRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
 
 }

@@ -6,6 +6,8 @@
   background: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  margin-top: 100px;
+  margin-bottom: 20px;
 }
 button {
   padding: 5px 10px;
@@ -284,5 +286,4 @@ button {
 .update-btn:hover {
   background-color: #45a049;
 }
-
 

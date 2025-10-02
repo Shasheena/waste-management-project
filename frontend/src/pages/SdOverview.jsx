@@ -6,20 +6,20 @@ const SdOverview = () => {
   return (
     <div className="dashboard-container">
       <div className="header">
-        <h2><i class="fa-solid fa-user"></i>  Seller Dashboard - </h2>
+        <h1><i class="fa-solid fa-user"></i>  Seller Dashboard  </h1>
         <button ><i class="fa-solid fa-arrow-right"></i>  Exit Dashboard</button>
       </div>
       <nav className="nav">
-  <a href="#">
+  <a href="/SdOverview">
     <i className="fa-solid fa-box-isometric"></i> Overview
   </a>
-  <a href="/my_items">
+  <a href="/MyItems">
     <i className="fa-solid fa-box"></i> My Items
   </a>
-  <a href="add_items">
+  <a href="/AddItem">
     <i className="fa-solid fa-plus"></i> Add Item
   </a>
-  <a href="profile">
+  <a href="/Profile">
     <i className="fa-solid fa-user"></i> Profile
   </a>
 </nav>

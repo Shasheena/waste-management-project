@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seller.auth.dto.SellerDto;
+import com.seller.auth.model.Seller;
 import com.seller.auth.service.SellerService;
 
 
@@ -22,11 +23,15 @@ public class ApiController {
 
     @GetMapping("/by-email")
     public SellerDto getSellerByEmail(@RequestParam String email) {
-        // Fetch seller from DB by email
-        String seller = sellerService.findByEmail(email);
+        Seller seller = sellerService.findByEmail(email);
+        // Map entity to DTO
         return new SellerDto(
-            seller
-            
+            seller.getEmail(),
+            seller.getFname(),
+            seller.getLname(),
+            seller.getUsername(),
+            seller.getAddress().getId(),
+            seller.getVersion()
         );
     }
     

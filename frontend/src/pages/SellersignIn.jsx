@@ -1,30 +1,52 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import './SellersignUp.css'; // Import the CSS file
 import { signin } from "../services/apiService.js";
 import axios from "axios"; 
 
+//creating a state object called formData with two fields. 
+//setFormData is the function you’ll use to update formData
 const SellerSignin = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    seller_email: '',
+    seller_password: ''
   });
+
+  const [loading, setLoading] = useState(false);   
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple validation example
-    if (!formData.email || !formData.password) {
-      alert("Please fill in all fields!");
-      return;
+    setLoading(true);
+    setErrorMsg("");
+
+    try {
+      const result = await signin(formData);
+      console.log("Signin response:", result);
+
+      if (result.status === "success") {
+        // store seller email in localStorage
+        localStorage.setItem("sellerEmail", result.email);
+        navigate("/SdOverview");
+      } else {
+        // setErrorMsg(result.message || "Signin failed!");
+        alert(result.message || "Signin failed!");
+      }
+    } catch (err) {
+      console.error("Signin failed:", err);
+      alert("Signin failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    console.log("Form submitted:", formData);
-    // Add your submission logic here
-  };
+};
+
 
   return (
     <div className="container">
@@ -42,9 +64,9 @@ const SellerSignin = () => {
           <label>Email <span className="required"></span></label>
           <input
             type="email"
-            name="email"
+            name="seller_email"
             placeholder="Enter your email "
-            value={formData.email}
+            value={formData.seller_email}
             onChange={handleChange}
             required
           />
@@ -53,9 +75,9 @@ const SellerSignin = () => {
           <label>Password <span className="required"></span></label>
           <input
             type="password"
-            name="password"
+            name="seller_password"
             placeholder="Enter your password"
-            value={formData.password}
+            value={formData.seller_password}
             onChange={handleChange}
             required
           />
@@ -65,7 +87,7 @@ const SellerSignin = () => {
           <a href="/forgotpw" className="link">Forgot password?</a>
         </div>
         <button type="submit">Sign In</button>
-        <p>Don't have an account? <a href="/seller_signup" className="link">Sign up as a seller</a></p>
+        <p>Don't have an account? <a href="/SellersignUp" className="link">Sign up as a seller</a></p>
         
       </form>
     </div>

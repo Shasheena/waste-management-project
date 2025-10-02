@@ -1,42 +1,74 @@
 package com.manageItem.item.dto;
 
 public class SellerInfoDto {
-    private String email;
-    private int addressId;
-    private String username;
+    private String seller_email;
+    private String seller_fname;
+    private String seller_lname;
+    private String seller_username;
+    private int address_id;
+    private int version;
 
     public SellerInfoDto() {
     }
 
-    public SellerInfoDto(String email, int addressId, String username) {
-        this.email = email;
-        this.addressId = addressId;
-        this.username = username;
+    public SellerInfoDto(String seller_email, String seller_fname, String seller_lname, String seller_username,
+            int address_id, int version) {
+        this.seller_email = seller_email;
+        this.seller_fname = seller_fname;
+        this.seller_lname = seller_lname;
+        this.seller_username = seller_username;
+        this.address_id = address_id;
+        this.version = version;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public String getSeller_email() {
+        return seller_email;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setSeller_email(String seller_email) {
+        this.seller_email = seller_email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSeller_fname() {
+        return seller_fname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSeller_fname(String seller_fname) {
+        this.seller_fname = seller_fname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSeller_lname() {
+        return seller_lname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSeller_lname(String seller_lname) {
+        this.seller_lname = seller_lname;
+    }
+
+    public String getSeller_username() {
+        return seller_username;
+    }
+
+    public void setSeller_username(String seller_username) {
+        this.seller_username = seller_username;
+    }
+
+    public int getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(int address_id) {
+        this.address_id = address_id;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     
-}
+    
+}  
