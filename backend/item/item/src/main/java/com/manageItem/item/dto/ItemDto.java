@@ -15,5 +15,6 @@ public class ItemDto {
     private int categoryId; // FK to ItemCategory
     private String sellerEmail; // Used to fetch seller email from SellerAuth service
     private int unit;
-    
+    private String image_path;
+    private int statusId; // or String statusName if using name
 }

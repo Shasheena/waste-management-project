@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
-import {
-  addItem,
-  getCategories,
-  getUnits,
-  getSellerInfo,
-} from "../services/apiService";
+import { addItem, getCategories, getUnits } from "../services/apiService";
 
 const AddItem = () => {
-  const [itemName, setItemName] = useState("");
+  const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [unit, setUnit] = useState("");
   const [units, setUnits] = useState([]);
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [username, setUsername] = useState("");
   const [sellerEmail, setSellerEmail] = useState("");
+  const [imageFile, setImageFile] = useState(null); // <-- new state for image
 
   // Load categories + units once
   useEffect(() => {
@@ -24,48 +19,42 @@ const AddItem = () => {
     getUnits().then(setUnits).catch(console.error);
   }, []);
 
-  // Fetch seller info once
+  // Fetch seller email from localStorage
   useEffect(() => {
     const email = localStorage.getItem("sellerEmail");
-    if (email) {
-      setSellerEmail(email);
-      getSellerInfo(email)
-        .then((data) => {
-          if (data && data.seller_username) {
-            setUsername(data.seller_username);
-          } else {
-            setUsername(email); // fallback
-          }
-        })
-        .catch((err) => {
-          console.error("Error fetching seller info:", err);
-          setUsername(email);
-        });
-    }
-  }, []);
+    if (email) setSellerEmail(email);
+    }, []);
 
-  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!imageFile) {
+      alert("Please select an image file.");
+      return;
+    }
+
     const itemData = {
-      itemName,
       unitPrice: Number(price),
       qty: Number(quantity),
+      description,
       categoryId: Number(categoryId),
       sellerEmail,
       unit: Number(unit),
     };
 
     try {
-      const response = await addItem(itemData);
+      // Pass itemData and imageFile separately
+      const response = await addItem(itemData, imageFile);
       alert(response || "The item entered successfully");
+
       // reset form
-      setItemName("");
+      setDescription("");
       setCategoryId("");
       setUnit("");
       setPrice("");
       setQuantity("");
+      setImageFile(null);
+      document.getElementById("imageInput").value = null;
     } catch (error) {
       alert("Failed to add item: " + error.message);
     }
@@ -75,7 +64,7 @@ const AddItem = () => {
     <div className="dashboard-container">
       <div className="header">
         <h1>
-          <i className="fa-solid fa-user"></i> {username + " Dashboard"}
+          <i className="fa-solid fa-user"></i> {"Seller Dashboard"}
         </h1>
         <button>
           <i className="fa-solid fa-arrow-right"></i> Exit Dashboard
@@ -83,18 +72,10 @@ const AddItem = () => {
       </div>
 
       <nav className="nav">
-        <a href="/SdOverview">
-          <i className="fa-solid fa-box-isometric"></i> Overview
-        </a>
-        <a href="/my_items">
-          <i className="fa-solid fa-box"></i> My Items
-        </a>
-        <a href="/AddItem">
-          <i className="fa-solid fa-plus"></i> Add Item
-        </a>
-        <a href="/profile">
-          <i className="fa-solid fa-user"></i> Profile
-        </a>
+        <a href="/SdOverview"><i className="fa-solid fa-box-isometric"></i> Overview</a>
+        <a href="/MyItems"><i className="fa-solid fa-box"></i> My Items</a>
+        <a href="/AddItem"><i className="fa-solid fa-plus"></i> Add Item</a>
+        <a href="/Profile"><i className="fa-solid fa-user"></i> Profile</a>
       </nav>
 
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
@@ -105,8 +86,8 @@ const AddItem = () => {
               <label>Item Name</label>
               <input
                 type="text"
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter item name"
                 className="border rounded p-2 input-small"
                 required
@@ -123,8 +104,8 @@ const AddItem = () => {
               >
                 <option value="">Select category</option>
                 {categories.map((cat) => (
-                  <option key={cat.category_id} value={cat.category_id}>
-                    {cat.category_name}
+                  <option key={cat.categoryId} value={cat.categoryId}>
+                    {cat.categoryName}
                   </option>
                 ))}
               </select>
@@ -165,11 +146,23 @@ const AddItem = () => {
             >
               <option value="">Select unit</option>
               {units.map((u) => (
-                <option key={u.unit_id} value={u.unit_id}>
-                  {u.unit_name}
+                <option key={u.unitId} value={u.unitId}>
+                  {u.unitName}
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label>Upload Item Image</label>
+            <input
+              id="imageInput"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+              className="border rounded p-2 input-small"
+              required
+            />
           </div>
 
           <button

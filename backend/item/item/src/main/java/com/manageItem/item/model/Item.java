@@ -37,12 +37,28 @@ public class Item {
     @Column(name = "seller_email", nullable = false)
     public String sellerEmail;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
+
     public int getItemId() {
         return itemId;
     }
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public double getUnitPrice() {
@@ -92,6 +108,15 @@ public class Item {
     public void setUnit(Units unit) {
         this.unit = unit;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
     
     
 }

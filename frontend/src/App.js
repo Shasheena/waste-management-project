@@ -30,6 +30,7 @@ import SellersignIn from "./pages/SellersignIn.jsx";
 import Home from "./pages/Home.jsx"
 import SdOverview from "./pages/SdOverview.jsx"
 import AddItem from "./pages/AddItem.jsx"
+import MyItems from "./pages/MyItems.jsx"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/SdOverview" element={<SdOverview />} />
         <Route path="/AddItem" element={<AddItem />} />
+        <Route path="/MyItems" element={<MyItems />} />
       </Routes>
     </Router>
   );

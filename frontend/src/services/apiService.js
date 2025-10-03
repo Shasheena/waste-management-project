@@ -4,16 +4,6 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080";
 const BASE_URL1 = "http://localhost:8082";
 
-// Fetch seller by email
-export const fetchSellerByEmail = async (email) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/api/sellers/by-email?email=${email}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
 // Seller Signup
 export const signup = async (data) => {
@@ -71,17 +61,17 @@ export const fetchProvinces = async () => {
 };
 
 // Fetch seller info by email
-export const getSellerInfo = async (email) => {
-  try {
-    const response = await axios.get(`${BASE_URL1}/api/items/seller`, {
-      params: { email }
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+// export const getSellerInfo = async (email) => {
+//   try {
+//     const response = await axios.get(`${BASE_URL1}/api/items/seller`, {
+//       params: { email }
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// };
 //Fetch item categries
 export const getCategories = async () => {
   try {
@@ -105,14 +95,28 @@ export const getUnits = async () => {
 };
 
 // Add Item API call
-export const addItem = async (itemData) => {
+export const addItem = async (itemData, imageFile) => {
   try {
-    const response = await axios.post(`${BASE_URL1}/item/add`, itemData, {
+    const formData = new FormData();
+
+    // Append JSON data as Blob
+    formData.append(
+      "item",
+      new Blob([JSON.stringify(itemData)], { type: "application/json" })
+    );
+
+    // Append image file
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
+    const response = await axios.post(`${BASE_URL1}/item/add`, formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     });
-    return response.data; // should return "The item entered successfully"
+
+    return response.data; // "The item entered successfully"
   } catch (error) {
     console.error("Error adding item:", error);
     throw error;

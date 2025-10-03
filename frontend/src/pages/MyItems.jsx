@@ -11,7 +11,7 @@ const MyItems = () => {
   return (
     <div className="dashboard-container">
       <div className="header">
-        <h2><i className="fa-solid fa-user"></i> Seller Dashboard - </h2>
+        <h1><i className="fa-solid fa-user"></i> Seller Dashboard </h1>
         <button><i className="fa-solid fa-arrow-right"></i> Exit Dashboard</button>
       </div>
 
