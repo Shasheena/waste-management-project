@@ -1,0 +1,83 @@
+/* Container */
+.learn-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.learn-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+/* Intro */
+.learn-intro {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Sections */
+.learn-section {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.learn-section h2 {
+  color: #1b5e20;
+  margin-bottom: 15px;
+}
+
+.learn-section ul,
+.learn-section ol {
+  margin-left: 20px;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Button */
+.learn-footer-btn {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.learn-btn {
+  display: inline-block;
+  background: #388e3c;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.learn-btn:hover {
+  background: #2e7d32;
+}
+
+/* Footer */
+.learn-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 15px;
+  background: #1b5e20;
+  color: white;
+  border-radius: 0 0 12px 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
