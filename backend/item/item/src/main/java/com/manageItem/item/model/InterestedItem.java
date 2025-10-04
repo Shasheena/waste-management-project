@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 public class InterestedItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    public int categoryId;
+    @Column(name = "idinterested_item_id")
+    public int idinterestedItemId;
 
     @ManyToOne
     @JoinColumn(name = "Item_item_id")
@@ -24,12 +24,36 @@ public class InterestedItem {
     @Column(name = "buyer_email")
     public String buyerEmail;
 
-    public int getCategoryId() {
-        return categoryId;
+    @Column(name = "total_price")
+    public double totalPrice;
+
+    @Column(name = "total_quantity")
+    public double totalQuantity;
+
+    
+
+    public int getIdinterestedItemId() {
+        return idinterestedItemId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setIdinterestedItemId(int idinterestedItemId) {
+        this.idinterestedItemId = idinterestedItemId;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(double totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public Item getItemIdItem() {

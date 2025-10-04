@@ -1,6 +1,7 @@
 package com.manageItem.item.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 
 // import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import com.manageItem.item.model.Item;
 import com.manageItem.item.model.ItemCategory;
 import com.manageItem.item.model.Status;
 import com.manageItem.item.model.Units;
+import com.manageItem.item.repository.InterestedItemRepository;
 import com.manageItem.item.repository.ItemCategoryRepository;
 import com.manageItem.item.repository.ItemRepository;
 import com.manageItem.item.repository.StatusRepository;
@@ -21,6 +23,8 @@ import com.manageItem.item.repository.UnitRepository;
 
 @Service
 public class ItemAddService {
+
+    private final InterestedItemRepository interestedItemRepository;
     private final ItemRepository itemRepository;
     private ItemCategoryRepository itemCategoryRepository;
     private UnitRepository unitRepository;
@@ -32,11 +36,13 @@ public class ItemAddService {
     // @Value("${seller.service.url}") // configurable in application.properties
     // private String sellerServiceUrl;
 
-    public ItemAddService(ItemRepository itemRepository, ItemCategoryRepository itemCategoryRepository, UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository) {
+    public ItemAddService(ItemRepository itemRepository, ItemCategoryRepository itemCategoryRepository,
+            UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository, InterestedItemRepository interestedItemRepository) {
         this.itemRepository = itemRepository;
         this.itemCategoryRepository = itemCategoryRepository;
         this.unitRepository = unitRepository;
         this.statusRepository = statusRepository;
+        this.interestedItemRepository = interestedItemRepository;
         // this.webClient = webClientBuilder.build();
     }
 
@@ -61,12 +67,13 @@ public class ItemAddService {
     public Item saveItem(ItemDto itemDTO, MultipartFile imageFile) {
         // 1. Fetch seller email from sellerAuth service
         // SellerInfoDto sellerEmail = webClient
-        //         .get()
-        //         .uri("http://localhost:8080/api/sellers/by-email?email=" + itemDTO.getSellerEmail()) // adjust param as per API
-        //         .retrieve()
-        //         .bodyToMono(SellerInfoDto.class)
-        //         .block();
-        
+        // .get()
+        // .uri("http://localhost:8080/api/sellers/by-email?email=" +
+        // itemDTO.getSellerEmail()) // adjust param as per API
+        // .retrieve()
+        // .bodyToMono(SellerInfoDto.class)
+        // .block();
+
         // String email = sellerEmail.getEmail();
 
         // 2. Convert DTO to Entity
@@ -81,20 +88,39 @@ public class ItemAddService {
         item.setImagePath(imagePath);
 
         ItemCategory category = itemCategoryRepository.findById(itemDTO.getCategoryId())
-        .orElseThrow(()->new RuntimeException("Category not found"));
+                .orElseThrow(() -> new RuntimeException("Category not found"));
         item.setCategoryId(category);
 
         Units unit = unitRepository.findById(itemDTO.getUnit())
-        .orElseThrow(()->new RuntimeException("Unit not found"));
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
         item.setUnit(unit);
 
         Status status = statusRepository.getReferenceById(1); // lazy proxy
-item.setStatus(status);
+        item.setStatus(status);
 
         // 3. Save in DB;
-        return itemRepository.save(item); 
+        return itemRepository.save(item);
     }
 
+    //Get items by seller
+    public List<Item> getItemsBySeller(String email) {
+        List<Item> items = itemRepository.findBySellerEmail(email);
+
+        // For each item, compute interest count
+        for (Item item : items) {
+            int interestCount = interestedItemRepository.countByItemIdItem(item);
+            item.setInterest(interestCount); // Add interest field temporarily
+        }
+
+        return items;
+    }
+
+    // Get item by ID
+    public Item getItemById(int id) {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        return optionalItem.orElseThrow(() -> 
+            new RuntimeException("Item not found with id " + id));
+    }
 
     // Update item by ID
     public Item updateItem(int id, Item updatedItem) {
@@ -107,7 +133,8 @@ item.setStatus(status);
             existingItem.setDescription(updatedItem.getDescription());
             existingItem.setCategoryId(updatedItem.getCategoryId());
             existingItem.setSellerEmail(updatedItem.getSellerEmail());
-            existingItem.setUnit(updatedItem.getUnit()); 
+            existingItem.setUnit(updatedItem.getUnit());
+            existingItem.setStatus(updatedItem.getStatus());
             return itemRepository.save(existingItem);
         } else {
             throw new RuntimeException("Item not found with id " + id);

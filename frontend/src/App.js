@@ -31,6 +31,7 @@ import Home from "./pages/Home.jsx"
 import SdOverview from "./pages/SdOverview.jsx"
 import AddItem from "./pages/AddItem.jsx"
 import MyItems from "./pages/MyItems.jsx"
+import Edit from "./pages/Edit.jsx"
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/SdOverview" element={<SdOverview />} />
         <Route path="/AddItem" element={<AddItem />} />
         <Route path="/MyItems" element={<MyItems />} />
+        <Route path="/Edit/:id" element={<Edit />} />
       </Routes>
     </Router>
   );

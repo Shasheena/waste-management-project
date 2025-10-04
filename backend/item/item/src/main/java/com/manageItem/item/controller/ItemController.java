@@ -1,5 +1,7 @@
 package com.manageItem.item.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +28,16 @@ public class ItemController {
         this.sellerClientService = sellerClientService;
         this.itemAddService = itemAddService;
     }
-    
 
     @GetMapping("/seller")
     public Mono<SellerInfoDto> getSeller(@RequestParam String email) {
         return sellerClientService.getSellerByEmail(email);
+    }
+
+    //fetch single item by ID
+    @GetMapping("/{id}")
+    public Item getItemById(@PathVariable int id) {
+        return itemAddService.getItemById(id);
     }
 
     // PUT request for updating item
@@ -45,5 +52,11 @@ public class ItemController {
         itemAddService.deleteItem(id);
         return "Item with id " + id + " deleted successfully";
     }
-}
 
+    // Get item by seller
+    @GetMapping("/seller/items")
+    public List<Item> getItemsBySeller(@RequestParam String email) {
+        return itemAddService.getItemsBySeller(email);
+    }
+
+}

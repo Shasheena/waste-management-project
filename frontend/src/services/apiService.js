@@ -123,3 +123,8 @@ export const addItem = async (itemData, imageFile) => {
   }
 };
 
+//Delete item
+export const deleteItemById = (id) => {
+  return axios.delete(`http://localhost:8082/api/items/${id}`);
+};
+

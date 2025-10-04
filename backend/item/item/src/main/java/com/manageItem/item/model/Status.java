@@ -16,12 +16,12 @@ public class Status {
     public int id;
 
     @Column(name = "status_name")
-    public double statusName;
+    public String statusName;
 
     public Status() {
     }
 
-    public Status(int id, double statusName) {
+    public Status(int id, String statusName) {
         this.id = id;
         this.statusName = statusName;
     }
@@ -34,11 +34,11 @@ public class Status {
         this.id = id;
     }
 
-    public double getStatusName() {
+    public String getStatusName() {
         return statusName;
     }
 
-    public void setStatusName(double statusName) {
+    public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
 

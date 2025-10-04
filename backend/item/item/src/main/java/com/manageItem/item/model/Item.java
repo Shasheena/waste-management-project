@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "item")
@@ -44,6 +45,16 @@ public class Item {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @Transient
+    private int interest;
+
+    public int getInterest() {
+        return interest;
+    }
+
+    public void setInterest(int interest) {
+        this.interest = interest;
+    }
 
     public int getItemId() {
         return itemId;
