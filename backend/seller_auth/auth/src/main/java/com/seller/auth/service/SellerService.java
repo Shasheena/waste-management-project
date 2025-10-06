@@ -1,14 +1,13 @@
 package com.seller.auth.service;
 
 import org.springframework.stereotype.Service;
-
 import com.seller.auth.model.Seller;
 import com.seller.auth.repository.SellerRepository;
 
 @Service
 public class SellerService {
 
-    private  SellerRepository sellerRepository; 
+    private SellerRepository sellerRepository;
 
     public SellerService(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
@@ -19,7 +18,6 @@ public class SellerService {
         return sellerRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Seller not found with email: " + email));
     }
-    
-}
 
-    
+
+}

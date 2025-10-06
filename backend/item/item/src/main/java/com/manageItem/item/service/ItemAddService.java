@@ -43,7 +43,8 @@ public class ItemAddService {
     // private String sellerServiceUrl;
 
     public ItemAddService(ItemRepository itemRepository, ItemCategoryRepository itemCategoryRepository,
-            UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository, InterestedItemRepository interestedItemRepository, SellerClientService sellerClientService) {
+            UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository,
+            InterestedItemRepository interestedItemRepository, SellerClientService sellerClientService) {
         this.itemRepository = itemRepository;
         this.itemCategoryRepository = itemCategoryRepository;
         this.unitRepository = unitRepository;
@@ -109,7 +110,7 @@ public class ItemAddService {
         return itemRepository.save(item);
     }
 
-    //Get items by seller
+    // Get items by seller
     public List<Item> getItemsBySeller(String email) {
         List<Item> items = itemRepository.findBySellerEmail(email);
 
@@ -125,8 +126,7 @@ public class ItemAddService {
     // Get item by ID
     public Item getItemById(int id) {
         Optional<Item> optionalItem = itemRepository.findById(id);
-        return optionalItem.orElseThrow(() -> 
-            new RuntimeException("Item not found with id " + id));
+        return optionalItem.orElseThrow(() -> new RuntimeException("Item not found with id " + id));
     }
 
     // Update item by ID
@@ -168,15 +168,33 @@ public class ItemAddService {
             SellerInfoDto seller = sellerMono.block(); // blocking just for simplicity
             String sellerUsername = (seller != null) ? seller.getSeller_username() : "Unknown";
 
+            String unitName = (item.getUnit() != null) ? item.getUnit().getUnitName() : "N/A";
+            String statusName = (item.getStatus() != null) ? item.getStatus().getStatusName() : "N/A";
+
             return new ItemWithSellerDto(
-                item.getItemId(),
-                item.getDescription(),
-                item.getUnitPrice(),
-                item.getQty(),
-                item.getSellerEmail(),
-                sellerUsername,
-                item.getImagePath()
-            );
+                    item.getItemId(),
+                    item.getDescription(),
+                    item.getUnitPrice(),
+                    item.getQty(),
+                    item.getSellerEmail(),
+                    sellerUsername,
+                    item.getImagePath(),
+                    unitName,
+                    statusName,
+                    item.getCategoryId() != null ? item.getCategoryId().getCategoryId() : 0);
         }).collect(Collectors.toList());
     }
+
+    public List<ItemWithSellerDto> searchItemsByName(String query) {
+        if (query == null || query.isEmpty()) {
+            return getAllItemsWithSellerInfo(); // return all items if search is empty
+        }
+
+        String lowerQuery = query.toLowerCase();
+
+        return getAllItemsWithSellerInfo().stream()
+                .filter(item -> item.getDescription().toLowerCase().contains(lowerQuery))
+                .collect(Collectors.toList());
+    }
+
 }

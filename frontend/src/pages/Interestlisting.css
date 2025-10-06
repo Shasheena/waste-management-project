@@ -1,0 +1,158 @@
+.interest-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.interest-title {
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.heart-icon {
+  color: red;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.alert-box {
+  background: #ffe5e5;
+  border: 1px solid #f5a6a6;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.alert-title {
+  font-weight: bold;
+  color: #c00;
+}
+
+.alert-sub {
+  font-size: 14px;
+  color: #c44;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.item-card {
+  position: relative;
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+}
+
+.delete-btn,
+.fav-btn {
+  position: absolute;
+  top: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn {
+  left: 12px;
+  color: #d9534f;
+}
+
+.fav-btn {
+  right: 12px;
+  color: #e74c3c;
+}
+
+.item-icon {
+  font-size: 40px;
+  color: #f0ad4e;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.item-category {
+  display: inline-block;
+  background: #fff3cd;
+  color: #856404;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.item-qty {
+  font-size: 14px;
+  color: #555;
+}
+
+.item-info {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.pickup-btn {
+  width: 100%;
+  background: #28a745;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  margin-top: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pickup-btn:hover {
+  background: #218838;
+}
+
+.remove-icon {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #ff4d4d;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.remove-icon:hover {
+  color: #d60000;
+}
+.card {
+  position: relative;
+}

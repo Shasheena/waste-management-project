@@ -35,6 +35,10 @@ import Edit from "./pages/Edit.jsx"
 import BuyersignUp from "./pages/BuyersignUp.jsx"
 import BuyersignIn from "./pages/BuyersignIn.jsx"
 import Itemlisting from "./pages/Itemlisting.jsx"
+import Interestlisting from "./pages/Interestlisting.jsx"
+import PickupPage from "./pages/PickupPage.jsx";
+import ForgotPw from "./pages/ForgotPw.jsx"
+import Profile from "./pages/Profile.jsx"
 
 function App() {
   return (
@@ -51,6 +55,10 @@ function App() {
         <Route path="/BuyersignUp" element={<BuyersignUp />} />
         <Route path="/BuyersignIn" element={<BuyersignIn />} />
         <Route path="/Itemlisting" element={<Itemlisting />} />
+        <Route path="/Interestlisting" element={<Interestlisting />} />
+        <Route path="/PickupPage/:id" element={<PickupPage />} />
+        <Route path="/ForgotPw" element={<ForgotPw />} />
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </Router>
   );

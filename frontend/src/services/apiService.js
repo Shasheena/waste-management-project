@@ -180,3 +180,60 @@ export const getAddressById = async (id) => {
     return null;
   }
 };
+
+//Add to interest list
+export const addToInterestedItems = async (itemId, buyerEmail, totalQuantity) => {
+  try {
+    const res = await axios.post(`${BASE_URL1}/api/interests/add`, null, {
+      params: { itemId, buyerEmail, totalQuantity },
+    });
+    return res.data;
+  } catch (err) {
+    console.error("Error adding to interests:", err);
+    throw err;
+  }
+};
+// Remove item from interest list
+export const removeInterestItem = async (id) => {
+  try {
+    const res = await axios.delete(`http://localhost:8082/api/interests/delete/${id}`);
+    return res.data;
+  } catch (err) {
+    console.error("Error removing interest item:", err);
+    throw err;
+  }
+};
+// Add item pickup record
+export const addItemPickup = async (itemId, buyerEmail, totalQty, totalPrice) => {
+  const res = await axios.post(
+    "http://localhost:8082/api/pickup/add",
+    null,
+    { params: { itemId, buyerEmail, totalQty, totalPrice } }
+  );
+  return res.data;
+};
+
+export const getPickupStatsBySeller = async (sellerEmail) => {
+  try {
+    const res = await axios.get(`${BASE_URL1}/api/pickup/stats-by-seller`, {
+      params: { sellerEmail },
+    });
+    return res.data; // { totalPickups: X, totalEarnings: Y }
+  } catch (err) {
+    console.error("Error fetching pickup stats:", err);
+    return { totalPickups: 0, totalEarnings: 0 };
+  }
+};
+// Get number of interested items for a seller
+export const getInterestedCountBySeller = async (sellerEmail) => {
+  try {
+    const res = await axios.get(`${BASE_URL1}/api/interests/count-by-seller`, {
+      params: { sellerEmail },
+    });
+    return res.data; // returns a number
+  } catch (err) {
+    console.error("Error fetching interested items count:", err);
+    return 0;
+  }
+};
+

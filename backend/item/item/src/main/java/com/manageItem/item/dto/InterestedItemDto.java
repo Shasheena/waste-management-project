@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemWithSellerDto {
+public class InterestedItemDto {
+    private int id;
     private int itemId;
     private String description;
     private double unitPrice;
     private double qty;
-    private String sellerEmail;
-    private String sellerUsername; // from Seller microservice
     private String imagePath;
-    private String unitName;   // ✅ from Units entity
+    private String sellerEmail;
+    private String sellerUsername;
+    private String city;
+    private String district;
     private String statusName;
-    private int categoryId;
+    private double totalPrice;
 }

@@ -1,9 +1,9 @@
 package com.seller.auth.service;
 
 import org.springframework.stereotype.Service;
+
 import com.seller.auth.model.Address;
 import com.seller.auth.repository.AddressRepository;
-
 
 @Service
 public class AddressService {
@@ -19,4 +19,5 @@ public class AddressService {
         // return addressOpt.orElse(null); // return null if not found
         return addressRepository.findByIdWithDetails(id);
     }
+
 }

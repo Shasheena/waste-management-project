@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.manageItem.item.dto.ItemWithSellerDto;
 import com.manageItem.item.dto.SellerInfoDto;
 import com.manageItem.item.model.Item;
 import com.manageItem.item.service.SellerClientService;
@@ -57,6 +58,11 @@ public class ItemController {
     @GetMapping("/seller/items")
     public List<Item> getItemsBySeller(@RequestParam String email) {
         return itemAddService.getItemsBySeller(email);
+    }
+
+    @GetMapping("/search")
+    public List<ItemWithSellerDto> searchItems(@RequestParam String query) {
+        return itemAddService.searchItemsByName(query);
     }
 
 }
