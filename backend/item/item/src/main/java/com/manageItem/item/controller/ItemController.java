@@ -34,7 +34,7 @@ public class ItemController {
         return sellerClientService.getSellerByEmail(email);
     }
 
-    //fetch single item by ID
+    // fetch single item by ID
     @GetMapping("/{id}")
     public Item getItemById(@PathVariable int id) {
         return itemAddService.getItemById(id);

@@ -3,6 +3,7 @@ package com.buyer_signin.sign_in.dto;
 public class signinRequest {
     public String email;
     public String password;
+    
     public String getEmail() {
         return email;
     }

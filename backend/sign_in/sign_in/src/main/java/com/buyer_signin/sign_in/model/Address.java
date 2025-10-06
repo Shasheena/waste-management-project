@@ -1,5 +1,4 @@
 package com.buyer_signin.sign_in.model;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,20 +17,22 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int address_id;
 
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_city_id", nullable = false)
+    private City city;
 
     @ManyToOne
-    @JoinColumn(name = "province_id", nullable = false)
-    private Province province_id;
+    @JoinColumn(name = "province_province_id", nullable = false)
+    private Province province;
 
     @ManyToOne
-    @JoinColumn(name = "district_id", nullable = false)
-    private District district_id;
+    @JoinColumn(name = "district_district_id", nullable = false)
+    private District district;
 
     private String other;
 
-    @Column(name = "postal_code")
-    private String postalCode;
+    // @Column(name = "postal_code")
+    // private String postalCode;
 
     @Version
     private int version;
@@ -44,11 +45,11 @@ public class Address {
         this.address_id = address_id;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -68,30 +69,29 @@ public class Address {
         this.version = version;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    // public String getPostalCode() {
+    //     return postalCode;
+    // }
+
+    // public void setPostalCode(String postalCode) {
+    //     this.postalCode = postalCode;
+    // }
+
+    public Province getProvince() {
+        return province;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
-    public Province getProvince_id() {
-        return province_id;
+    public District getDistrict() {
+        return district;
     }
 
-    public void setProvince_id(Province province_id) {
-        this.province_id = province_id;
+    public void setDistrict(District district) {
+        this.district = district;
     }
-
-    public District getDistrict_id() {
-        return district_id;
-    }
-
-    public void setDistrict_id(District district_id) {
-        this.district_id = district_id;
-    }
-
-    
     
 }
+

@@ -1,6 +1,4 @@
-package com.seller.auth.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.buyer_signin.sign_in.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "city")
 public class City {
@@ -33,3 +30,4 @@ public class City {
 
     
 }
+

@@ -3,6 +3,7 @@ package com.manageItem.item.service;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.manageItem.item.dto.ItemDto;
+import com.manageItem.item.dto.ItemWithSellerDto;
+import com.manageItem.item.dto.SellerInfoDto;
 // import com.manageItem.item.dto.SellerInfoDto;
 import com.manageItem.item.model.Item;
 import com.manageItem.item.model.ItemCategory;
@@ -21,6 +24,8 @@ import com.manageItem.item.repository.ItemRepository;
 import com.manageItem.item.repository.StatusRepository;
 import com.manageItem.item.repository.UnitRepository;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class ItemAddService {
 
@@ -29,6 +34,7 @@ public class ItemAddService {
     private ItemCategoryRepository itemCategoryRepository;
     private UnitRepository unitRepository;
     private StatusRepository statusRepository;
+    private final SellerClientService sellerClientService;
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
     // private final WebClient webClient;
@@ -37,12 +43,13 @@ public class ItemAddService {
     // private String sellerServiceUrl;
 
     public ItemAddService(ItemRepository itemRepository, ItemCategoryRepository itemCategoryRepository,
-            UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository, InterestedItemRepository interestedItemRepository) {
+            UnitRepository unitRepository, WebClient.Builder webClientBuilder, StatusRepository statusRepository, InterestedItemRepository interestedItemRepository, SellerClientService sellerClientService) {
         this.itemRepository = itemRepository;
         this.itemCategoryRepository = itemCategoryRepository;
         this.unitRepository = unitRepository;
         this.statusRepository = statusRepository;
         this.interestedItemRepository = interestedItemRepository;
+        this.sellerClientService = sellerClientService;
         // this.webClient = webClientBuilder.build();
     }
 
@@ -151,4 +158,25 @@ public class ItemAddService {
         }
     }
 
+    public List<ItemWithSellerDto> getAllItemsWithSellerInfo() {
+        List<Item> items = itemRepository.findAll();
+
+        return items.stream().map(item -> {
+            // Call Seller service via WebClient
+            Mono<SellerInfoDto> sellerMono = sellerClientService.getSellerByEmail(item.getSellerEmail());
+
+            SellerInfoDto seller = sellerMono.block(); // blocking just for simplicity
+            String sellerUsername = (seller != null) ? seller.getSeller_username() : "Unknown";
+
+            return new ItemWithSellerDto(
+                item.getItemId(),
+                item.getDescription(),
+                item.getUnitPrice(),
+                item.getQty(),
+                item.getSellerEmail(),
+                sellerUsername,
+                item.getImagePath()
+            );
+        }).collect(Collectors.toList());
+    }
 }

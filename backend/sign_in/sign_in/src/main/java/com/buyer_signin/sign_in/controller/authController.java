@@ -11,6 +11,7 @@ import com.buyer_signin.sign_in.dto.signupRequest;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class authController {
 
     @Autowired

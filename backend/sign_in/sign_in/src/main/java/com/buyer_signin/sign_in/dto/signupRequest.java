@@ -6,11 +6,11 @@ public class signupRequest {
     public String last_name;
     public String username;
     public String password;
-    public String city;
+    public int city_id;
     public int province_id;
     public int district_id;
     public String other;
-    public String postalCode;
+
 
     
 
@@ -44,24 +44,12 @@ public class signupRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
     
     public String getOther() {
         return other;
     }
     public void setOther(String other) {
         this.other = other;
-    }
-    public String getPostalCode() {
-        return postalCode;
-    }
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
     }
     public int getProvince_id() {
         return province_id;
@@ -74,6 +62,12 @@ public class signupRequest {
     }
     public void setDistrict_id(int district_id) {
         this.district_id = district_id;
+    }
+    public int getCity_id() {
+        return city_id;
+    }
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
     }
 
     

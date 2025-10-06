@@ -32,6 +32,9 @@ import SdOverview from "./pages/SdOverview.jsx"
 import AddItem from "./pages/AddItem.jsx"
 import MyItems from "./pages/MyItems.jsx"
 import Edit from "./pages/Edit.jsx"
+import BuyersignUp from "./pages/BuyersignUp.jsx"
+import BuyersignIn from "./pages/BuyersignIn.jsx"
+import Itemlisting from "./pages/Itemlisting.jsx"
 
 function App() {
   return (
@@ -45,6 +48,9 @@ function App() {
         <Route path="/AddItem" element={<AddItem />} />
         <Route path="/MyItems" element={<MyItems />} />
         <Route path="/Edit/:id" element={<Edit />} />
+        <Route path="/BuyersignUp" element={<BuyersignUp />} />
+        <Route path="/BuyersignIn" element={<BuyersignIn />} />
+        <Route path="/Itemlisting" element={<Itemlisting />} />
       </Routes>
     </Router>
   );

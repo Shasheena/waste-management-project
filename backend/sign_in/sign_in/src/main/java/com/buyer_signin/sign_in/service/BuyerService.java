@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import com.buyer_signin.sign_in.model.Address;
+import com.buyer_signin.sign_in.model.City;
 import com.buyer_signin.sign_in.model.District;
 import com.buyer_signin.sign_in.model.Province;
 import com.buyer_signin.sign_in.model.User;
+import com.buyer_signin.sign_in.repository.CityRepository;
 import com.buyer_signin.sign_in.repository.addressRepository;
 import com.buyer_signin.sign_in.repository.districtRepository;
 import com.buyer_signin.sign_in.repository.provinceRepository;
@@ -32,7 +34,13 @@ public class BuyerService {
     @Autowired
     private districtRepository districtRepository;
 
+    @Autowired
+    private CityRepository cityRepository;
+
     public String register(signupRequest request) {
+
+        City city = cityRepository.findById(request.getCity_id())
+        .orElseThrow(() -> new RuntimeException("City not found"));
 
         Province province = provinceRepository.findById(request.getProvince_id())
         .orElseThrow(() -> new RuntimeException("Province not found"));
@@ -41,11 +49,10 @@ public class BuyerService {
         .orElseThrow(() -> new RuntimeException("District not found"));
 
         Address address = new Address();
-        address.setCity(request.getCity());
-        address.setDistrict_id(district);
-        address.setProvince_id(province);
+        address.setCity(city);
+        address.setDistrict(district);
+        address.setProvince(province);
         address.setOther(request.getOther());
-        address.setPostalCode(request.getPostalCode());
         Address saveAddress = addressRepository.save(address);
 
         User user = new User();

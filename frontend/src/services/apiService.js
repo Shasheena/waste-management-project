@@ -3,6 +3,7 @@ import axios from "axios";
 // Base URL for backend
 const BASE_URL = "http://localhost:8080";
 const BASE_URL1 = "http://localhost:8082";
+const BASE_URL2 = "http://localhost:8083";
 
 
 // Seller Signup
@@ -128,3 +129,54 @@ export const deleteItemById = (id) => {
   return axios.delete(`http://localhost:8082/api/items/${id}`);
 };
 
+// Buyer Signup API
+export const buyerSignup = async (buyerData) => {
+  try {
+    const response = await axios.post("http://localhost:8083/auth/signup", buyerData);
+    return response.data;
+  } catch (error) {
+    console.error("Error signing up buyer:", error);
+    throw error;
+  }
+};
+
+//Buyer sign-in API call
+export const buyerSignIn = async (data) => {
+  try {
+    const response = await axios.post(`${BASE_URL2}/auth/signin`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error in buyerSignIn:", error);
+    throw error;
+  }
+};
+//fetch all items
+export const getAllItems = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL1}/api/items/fetch/all`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    return [];
+  }
+};
+//fetch seller by email
+export const getSellerByEmail = async (email) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/sellers/by-email?email=${email}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching seller info:", error);
+    return null;
+  }
+};
+//fetch address by id
+export const getAddressById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/address/by-id?id=${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching address info:", error);
+    return null;
+  }
+};
