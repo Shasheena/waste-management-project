@@ -13,7 +13,13 @@ pipeline {
             }
         }
 
+        // <-- Override agent only for React build
         stage('Build React App') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                }
+            }
             steps {
                 dir("${FRONTEND_DIR}") {
                     sh 'npm install'
