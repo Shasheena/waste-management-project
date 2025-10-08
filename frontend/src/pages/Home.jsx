@@ -11,9 +11,8 @@ const Home = () => {
         <div className="logo">EchoExchange</div>
         <ul className="navbar-links">
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/categories">Categories</Link></li>
-          <li><Link to="/signin" className="nav-btn">SignIn</Link></li>
-          <li><Link to="/signup" className="nav-btn">SignUp</Link></li>
+          <li><Link to="/Option" className="nav-btn">SignIn</Link></li>
+          <li><Link to="/Option" className="nav-btn">SignUp</Link></li>
         </ul>
       </div>
 
@@ -29,10 +28,10 @@ const Home = () => {
         </p>
 
         <div className="home-btns">
-          <Link to="/option">
+          <Link to="/Option">
             <button className="home-btn">Get Started</button>
           </Link>
-          <Link to="/about">
+          <Link to="/Learnmore">
             <button className="home-btn alt">Learn More</button>
           </Link>
         </div>

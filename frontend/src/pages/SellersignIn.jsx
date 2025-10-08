@@ -86,7 +86,7 @@ const SellerSignin = () => {
          
           <a href="/ForgotPw" className="link">Forgot password?</a>
         </div>
-        <button type="submit" style={{marginTop:"10px", marginLeft:"150px", width:"200px"}}>Sign In</button>
+        <button type="submit" style={{marginTop:"10px", marginLeft:"", width:"200px"}}>Sign In</button>
         <p>Don't have an account? <a href="/SellersignUp" className="link">Sign up as a seller</a></p>
         
       </form>

@@ -77,10 +77,10 @@ const BuyersignIn = () => {
         </div>
 
         <div className="checkbox-group">
-          <a href="/forgotpw" className="link">Forgot password?</a>
+          <a href="/Forgotpw" className="link">Forgot password?</a>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" style={{marginTop:"10px"}}>Sign In</button>
 
         <p>
           Don't have an account?{" "}

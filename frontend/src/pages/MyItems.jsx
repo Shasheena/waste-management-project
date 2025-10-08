@@ -77,7 +77,7 @@ const MyItems = () => {
                         <i className="fa-solid fa-pen"></i>
                       </button>
                     </Link>
-                    <button className="delete-btn" onClick={() => handleDelete(item.itemId)}><i className="fa-solid fa-trash"></i></button>
+                    <button style={{backgroundColor:"red"}} onClick={() => handleDelete(item.itemId)}><i className="fa-solid fa-trash"></i></button>
                   </td>
                 </tr>
               ))}

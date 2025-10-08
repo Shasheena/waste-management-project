@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { addItem, getCategories, getUnits } from "../services/apiService";
 
 const AddItem = () => {
+  const navigate = useNavigate();
+  
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
@@ -23,7 +26,7 @@ const AddItem = () => {
   useEffect(() => {
     const email = localStorage.getItem("sellerEmail");
     if (email) setSellerEmail(email);
-    }, []);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,14 +62,16 @@ const AddItem = () => {
       alert("Failed to add item: " + error.message);
     }
   };
-
+  const handleExit = () => {
+    navigate("/"); // go to home page
+  };
   return (
     <div className="dashboard-container">
       <div className="header">
         <h1>
           <i className="fa-solid fa-user"></i> {"Seller Dashboard"}
         </h1>
-        <button>
+        <button onClick={handleExit}>
           <i className="fa-solid fa-arrow-right"></i> Exit Dashboard
         </button>
       </div>
@@ -84,12 +89,12 @@ const AddItem = () => {
           <div className="form-grid">
             <div>
               <label>Item Name</label>
-              <input
+              <input style={{ width: "350px" }}
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Enter item name"
-                className="border rounded p-2 input-small"
+                className="input-small"
                 required
               />
             </div>
@@ -99,7 +104,7 @@ const AddItem = () => {
               <select
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="border rounded p-2 input-small"
+                className="input-small"
                 required
               >
                 <option value="">Select category</option>
@@ -118,7 +123,7 @@ const AddItem = () => {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="Enter price"
-                className="border rounded p-2 input-small"
+                className="input-small"
                 required
               />
             </div>
@@ -130,44 +135,47 @@ const AddItem = () => {
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 placeholder="Enter quantity"
-                className="border rounded p-2 input-small"
+                className="input-small"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <label>Choose the unit</label>
-            <select
-              value={unit}
-              onChange={(e) => setUnit(e.target.value)}
-              className="border rounded p-2 input-small"
-              required
-            >
-              <option value="">Select unit</option>
-              {units.map((u) => (
-                <option key={u.unitId} value={u.unitId}>
-                  {u.unitName}
-                </option>
-              ))}
-            </select>
+          <div className="unit-image-row">
+            <div>
+              <label>Choose the unit</label>
+              <select
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                className="input-small"
+                required
+              >
+                <option value="">Select unit</option>
+                {units.map((u) => (
+                  <option key={u.unitId} value={u.unitId}>
+                    {u.unitName}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={{marginRight:"-10px"}}>
+              <label>Upload Item Image</label>
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files[0])}
+                className="input-small"
+                required
+              />
+            </div>
           </div>
 
-          <div>
-            <label>Upload Item Image</label>
-            <input
-              id="imageInput"
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-              className="border rounded p-2 input-small"
-              required
-            />
-          </div>
 
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            style={{display:"block",margin:"0 auto", marginTop:"35px", height:"40px",width:"200px", fontSize:"large"}}
           >
             Add Item
           </button>

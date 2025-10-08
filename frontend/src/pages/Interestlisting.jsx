@@ -65,7 +65,7 @@ export default function InterestList() {
 
       <div className="cards-grid">
         {interests.map((item, index) => (
-          <div key={index} className="card">
+          <div key={index} className="itemCard">
             <div className="remove-icon" onClick={() => handleRemove(item.id)}>
               <FaTrashAlt />
             </div>

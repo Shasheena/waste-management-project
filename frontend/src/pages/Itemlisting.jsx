@@ -63,14 +63,17 @@ function Itemlisting() {
       console.error("Error searching items:", error);
     }
   };
-  
+
   return (
     <div className="listings-container">
       <div className="header">
         <h2>Item Listings</h2>
-        <Link to="/Interestlisting" className="interest-link">
-          ❤️ My Interests
-        </Link>
+        <ul className="navbar-links">
+          <li><a href="/Home" >Home</a></li>
+          <li><Link style={{color:"white"}} to="/Interestlisting" className="interest-link">
+            ❤️ My Interests
+          </Link></li>
+        </ul>
       </div>
 
       {/* 🔹 UPDATED: Search & Filters */}
@@ -114,7 +117,7 @@ function Itemlisting() {
 
       <div className="cards-grid">
         {filteredItems.map((item, index) => (
-          <div key={index} className="card">
+          <div key={index} className="itemCard">
             {item.imagePath && (
               <img
                 src={`http://localhost:8082/${item.imagePath}`}

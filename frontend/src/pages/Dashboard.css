@@ -136,14 +136,15 @@ button {
 .delete-btn {
   background-color: #f44336;
   color: white;
-}.form-grid {
+}
+.form-grid {
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 20px;
 }
 
 .input-small {
-  width: 350px;
+  width: 350px !important;
   height: 35px; 
   box-sizing: border-box;
 }
@@ -287,3 +288,14 @@ button {
   background-color: #45a049;
 }
 
+.unit-image-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+   /* space between unit and image */
+  margin-top: 20px;
+}
+
+.unit-image-row > div {
+  flex: 1;
+}

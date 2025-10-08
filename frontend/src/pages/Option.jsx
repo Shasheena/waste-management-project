@@ -12,9 +12,9 @@ const LandingPage = () => {
 
   const handleContinue = () => {
     if (selectedRole === 'seller') {
-      navigate('/seller_signup');
+      navigate('/SellersignUp');
     } else if (selectedRole === 'buyer') {
-      navigate('/buyer_signup');
+      navigate('/BuyersignUp');
     }
   };
 

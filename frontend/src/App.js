@@ -24,7 +24,7 @@
 
 // export default App;
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-dom";
 import SellersignUp from "./pages/SellersignUp.jsx"; //Tries to load a file called SellersignUp.jsx in the same folder as App.jsx.
 import SellersignIn from "./pages/SellersignIn.jsx";
 import Home from "./pages/Home.jsx"
@@ -36,15 +36,17 @@ import BuyersignUp from "./pages/BuyersignUp.jsx"
 import BuyersignIn from "./pages/BuyersignIn.jsx"
 import Itemlisting from "./pages/Itemlisting.jsx"
 import Interestlisting from "./pages/Interestlisting.jsx"
-import PickupPage from "./pages/PickupPage.jsx";
+import PickupPage from "./pages/PickupPage.jsx"
 import ForgotPw from "./pages/ForgotPw.jsx"
 import Profile from "./pages/Profile.jsx"
+import Learnmore from "./pages/Learnmore.jsx"
+import Option from "./pages/Option.jsx"
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<h1>Welcome to EcoExchange</h1>} />
+        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/SellersignUp" element={<SellersignUp />} />
         <Route path="/SellersignIn" element={<SellersignIn />} />
         <Route path="/Home" element={<Home />} />
@@ -59,6 +61,8 @@ function App() {
         <Route path="/PickupPage/:id" element={<PickupPage />} />
         <Route path="/ForgotPw" element={<ForgotPw />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/Learnmore" element={<Learnmore />} />
+        <Route path="/Option" element={<Option />} />
       </Routes>
     </Router>
   );
