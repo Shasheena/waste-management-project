@@ -13,7 +13,14 @@ pipeline {
             }
         }
 
+        // Use Node Docker agent just for React build
         stage('Build React App') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    args '-v /var/jenkins_home/.npm:/root/.npm' // optional, for caching npm packages
+                }
+            }
             steps {
                 dir("${FRONTEND_DIR}") {
                     echo '💻 Installing Node dependencies...'
