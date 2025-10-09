@@ -16,8 +16,8 @@ pipeline {
         stage('Build React App') {
             steps {
                 dir("${FRONTEND_DIR}") {
-                    bat 'npm install'
-                    bat 'npm run build'
+                    sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Build Spring Boot App') {
             steps {
                 dir("${BACKEND_DIR}") {
-                    bat 'mvn clean package -DskipTests'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -33,15 +33,15 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    bat 'docker build -t my-frontend:latest ./frontend'
-                    bat 'docker build -t my-backend:latest ./backend'
+                    sh 'docker build -t my-frontend:latest ./frontend'
+                    sh 'docker build -t my-backend:latest ./backend'
                 }
             }
         }
 
         stage('Run Containers') {
             steps {
-                bat 'docker compose up -d'
+                sh 'docker compose up -d'
             }
         }
     }
