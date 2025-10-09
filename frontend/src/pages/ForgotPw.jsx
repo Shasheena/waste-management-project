@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './SellersignUp.css'; // Import the CSS file
 
 const ForgotPw = () => {

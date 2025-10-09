@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import './SellersignUp.css'; // Import the CSS file
 import { signin } from "../services/apiService.js";
-import axios from "axios"; 
 
 //creating a state object called formData with two fields. 
 //setFormData is the function you’ll use to update formData
@@ -14,8 +13,8 @@ const SellerSignin = () => {
     seller_password: ''
   });
 
-  const [loading, setLoading] = useState(false);   
-  const [errorMsg, setErrorMsg] = useState("");
+  // const [loading, setLoading] = useState(false);   
+  // const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

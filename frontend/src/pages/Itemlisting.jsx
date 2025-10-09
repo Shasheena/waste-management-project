@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Itemlisting.css";
-import { FaBox, FaMapMarkerAlt, FaUser, FaHeart } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUser, FaHeart } from "react-icons/fa";
 import { getAllItems, getSellerByEmail, getAddressById, addToInterestedItems, getCategories, fetchCities } from "../services/apiService";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -45,24 +45,24 @@ function Itemlisting() {
     .filter((item) => (selectedCity ? item.city === selectedCity : true))
     .filter((item) => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const handleSearch = async () => {
-    try {
-      if (!searchTerm) {
-        // Fetch all items if searchTerm is empty
-        const allItems = await getAllItems();
-        setItems(allItems);
-        return;
-      }
+  // const handleSearch = async () => {
+  //   try {
+  //     if (!searchTerm) {
+  //       // Fetch all items if searchTerm is empty
+  //       const allItems = await getAllItems();
+  //       setItems(allItems);
+  //       return;
+  //     }
 
-      const response = await axios.get(`http://localhost:8082/api/items/search`, {
-        params: { query: searchTerm },
-      });
+  //     const response = await axios.get(`http://localhost:8082/api/items/search`, {
+  //       params: { query: searchTerm },
+  //     });
 
-      setItems(response.data);
-    } catch (error) {
-      console.error("Error searching items:", error);
-    }
-  };
+  //     setItems(response.data);
+  //   } catch (error) {
+  //     console.error("Error searching items:", error);
+  //   }
+  // };
 
   return (
     <div className="listings-container">

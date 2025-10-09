@@ -4,18 +4,18 @@ import './Dashboard.css';
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [photoPreview, setPhotoPreview] = useState(null);
+  // const [photoPreview, setPhotoPreview] = useState(null);
 
-  const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPhotoPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handlePhotoChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPhotoPreview(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
   const handleExit = () => {
     navigate("/"); // go to home page
   };

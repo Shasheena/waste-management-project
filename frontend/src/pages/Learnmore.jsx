@@ -8,7 +8,6 @@ import {
   FaTrash, 
   FaBoxOpen, 
   FaHandsHelping, 
-  FaStar 
 } from "react-icons/fa";
 
 function LearnMore() {
