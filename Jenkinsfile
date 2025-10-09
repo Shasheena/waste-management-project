@@ -13,20 +13,11 @@ pipeline {
             }
         }
 
-        // Use Node Docker agent just for React build
         stage('Build React App') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    args '-v /var/jenkins_home/.npm:/root/.npm' // optional, for caching npm packages
-                }
-            }
             steps {
                 dir("${FRONTEND_DIR}") {
-                    echo '💻 Installing Node dependencies...'
-                    sh 'npm install'
-                    echo '📦 Building React app...'
-                    sh 'npm run build'
+                    bat 'npm install'
+                    bat 'npm run build'
                 }
             }
         }
@@ -34,8 +25,7 @@ pipeline {
         stage('Build Spring Boot App') {
             steps {
                 dir("${BACKEND_DIR}") {
-                    echo '🔨 Building Spring Boot app...'
-                    sh 'mvn clean package -DskipTests'
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -43,17 +33,15 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    echo '🐳 Building Docker images...'
-                    sh 'docker build -t my-frontend:latest ./frontend'
-                    sh 'docker build -t my-backend:latest ./backend'
+                    bat 'docker build -t my-frontend:latest ./frontend'
+                    bat 'docker build -t my-backend:latest ./backend'
                 }
             }
         }
 
         stage('Run Containers') {
             steps {
-                echo '🚀 Starting containers with Docker Compose...'
-                sh 'docker compose up -d'
+                bat 'docker compose up -d'
             }
         }
     }
